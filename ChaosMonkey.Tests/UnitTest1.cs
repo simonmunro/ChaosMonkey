@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Configuration;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using ChaosMonkey.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ChaosMonkey.Tests
@@ -59,12 +61,22 @@ namespace ChaosMonkey.Tests
         //
         #endregion
 
-        [TestMethod]
-        public void TestMethod1()
+        private Ec2Factory ec2Factory;
+
+        [TestInitialize()]
+        public void MyTestInitialize()
         {
-            //
-            // TODO: Add test logic here
-            //
+            var appConfig = ConfigurationManager.AppSettings;
+
+            ec2Factory = new Ec2Factory(appConfig["AWSAccessKey"], appConfig["AWSSecretKey"]);
+             
+        }
+
+        [TestMethod]
+        public void can_list_all_instances()
+        {
+            var instances = ec2Factory.ListAllInstances();
+            Assert.IsTrue(instances.Count > 0);
         }
     }
 }

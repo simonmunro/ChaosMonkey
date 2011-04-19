@@ -9,3 +9,6 @@
 # Resharper
 *[Rr]e[Ss]harper.user
 _ReSharper.*/
+
+# Excluded for private info
+App.config
