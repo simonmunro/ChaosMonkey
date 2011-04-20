@@ -26,5 +26,36 @@ namespace ChaosMonkey.Infrastructure
             var describeInstancesResponse = amazonEc2.DescribeInstances(describeInstancesRequest);
             return describeInstancesResponse.DescribeInstancesResult.Reservation;
         }
+
+        public List<Reservation> ListInstancesByTag(string tagKey, string tagValue)
+        {
+            var describeInstancesRequest = new DescribeInstancesRequest()
+            {
+                Filter = new List<Filter> 
+							{ 
+								new Filter() 
+									{ 
+										Name = "tag:" + tagKey,
+										Value = new List<string> 
+											{ 
+												tagValue 
+											} 
+									}
+							}
+            };
+            var describeInstancesResponse = amazonEc2.DescribeInstances(describeInstancesRequest);
+            return describeInstancesResponse.DescribeInstancesResult.Reservation;
+            
+        }
+
+        public void TerminateInstance(string instanceId)
+        {
+            TerminateInstancesRequest terminateInstancesRequest = new TerminateInstancesRequest()
+                                                                      {
+                                                                          InstanceId = new List<string>() { instanceId }
+                                                                      };
+            var terminateInstancesResponse = amazonEc2.TerminateInstances(terminateInstancesRequest);
+        }
+        
     }
 }

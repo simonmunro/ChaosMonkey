@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AwsAccessKey>foo</AwsAccessKey>
+  <AwsSecretKey>bar</AwsSecretKey>
+  <Ec2Endpoint>EU</Ec2Endpoint>
+  <Tagkey>chaos</Tagkey>
+  <TagValue>1</TagValue>
+</Settings>
