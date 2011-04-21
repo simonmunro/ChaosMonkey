@@ -6,23 +6,23 @@ The Chaos Monkey originated with Netflix, who [built a Chaos Monkey](http://tech
 
 This is a .NET implementation of the Chaos Monkey that randomly chooses from *tagged* instances at an endpoint (eg. US, EU etc). The application is a simple console executable that uses the AWS .NET API and has various options available, as listed below:
 
-  -a, --awsaccesskey=VALUE   Access key of AWS IAM user that can list and terminate instances
-  -d, --delay=VALUE          Delay (milliseconds) before chaos is unleashed again (if repeat option set)
-  -D, --acceptdisclaimer     Chaos Monkey is designed to break stuff, setting this option means that you acknowledge this
-  -e, --endpoint=VALUE       AWS endpoint name (US-East, US-West, EU, Asia-Pacific-Singapore, Asia-Pacific-Japan)
-  -h, -?, --help             Show help (this screen)
-  -i, --loadsettings=VALUE   Load settings xml file
-  -l, --log=VALUE            Save log to file
-  -o, --savesettings=VALUE   Save settings to xml file
-  -r, --repeat=VALUE         Number of times chaos is unleashed (default 1)
-  -s, --awssecretkey=VALUE   Access key of AWS IAM user that can list and terminate instances
-  -S, --serviceurl=VALUE     URL of EC2 service endpoint (use e|endpoint to use defaults)
-  -t, --tagkey=VALUE         Key of Tag that will be search for in instances e.g. if EC2 tag is chaos=1, ChaosMonkey -t=chaos -v=1
-  -v, --tagvalue=VALUE       Value of Tag that will be search for in instances e.g. if EC2 tag is chaos=1, ChaosMonkey -v=1 -t=chaos
+    -a, --awsaccesskey=VALUE		Access key of AWS IAM user that can list and terminate instances  
+    -d, --delay=VALUE				Delay (milliseconds) before chaos is unleashed again (if repeat option set)  
+    -D, --acceptdisclaimer          Chaos Monkey is designed to break stuff, setting this option means that you acknowledge this  
+    -e, --endpoint=VALUE       		AWS endpoint name (US-East, US-West, EU, Asia-Pacific-Singapore, Asia-Pacific-Japan)  
+    -h, -?, --help             		Show help (this screen)  
+    -i, --loadsettings=VALUE   		Load settings xml file  
+    -l, --log=VALUE            		Save log to file  
+    -o, --savesettings=VALUE   		Save settings to xml file  
+    -r, --repeat=VALUE         		Number of times chaos is unleashed (default 1)  
+    -s, --awssecretkey=VALUE   		Access key of AWS IAM user that can list and terminate instances  
+    -S, --serviceurl=VALUE     		URL of EC2 service endpoint (use e|endpoint to use defaults)  
+    -t, --tagkey=VALUE         		Key of Tag that will be search for in instances e.g. if EC2 tag is chaos=1, ChaosMonkey -t=chaos -v=1  
+    -v, --tagvalue=VALUE       		Value of Tag that will be search for in instances e.g. if EC2 tag is chaos=1, ChaosMonkey -v=1 -t=chaos  
   
 The screenshot below illustrates how it runs.
 
-![ScreenShot](https://github.com/simonmunro/ChaosMonkey/blob/master/ScreenShot.png)
+![ScreenShot](https://github.com/simonmunro/ChaosMonkey/blob/master/ScreenShot.png?raw=true)
 
 To install, you can download the binaries, extract the zip file and run ChaosMonkey.exe
 
@@ -30,4 +30,4 @@ To install, you can download the binaries, extract the zip file and run ChaosMon
 
 By design, the Chaos Monkey terminates servers randomly and without prejudice. Nobody can accept any responsibility if you use the Chaos Monkey to shoot yourself in the foot.
 
-Simon Munro
+[Simon Munro](http://twitter.com/simonmunro)
