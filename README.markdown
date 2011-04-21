@@ -22,7 +22,7 @@ This is a .NET implementation of the Chaos Monkey that randomly chooses from *ta
   
 The screenshot below illustrates how it runs.
 
-![ScreenShot](ScreenShot.png)
+![ScreenShot](https://github.com/simonmunro/ChaosMonkey/blob/master/ScreenShot.png)
 
 To install, you can download the binaries, extract the zip file and run ChaosMonkey.exe
 
