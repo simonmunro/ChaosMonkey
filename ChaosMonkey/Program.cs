@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ChaosMonkey.Domain;
-using NDesk.Options;
-
-namespace ChaosMonkey
+﻿namespace ChaosMonkey
 {
+    using System;
+    using Domain;
+    using Infrastructure;
+    using NDesk.Options;
+
     class Program
     {
         static void Main(string[] args)
@@ -15,6 +13,7 @@ namespace ChaosMonkey
             var showHelp = false;
             var saveSettingsFile = string.Empty;
             var acceptDisclaimer = false;
+            var loadSettingsFile = string.Empty;
 
             var options = new OptionSet()
                                     {
@@ -44,7 +43,7 @@ namespace ChaosMonkey
                                             x => showHelp = x != null
                                             },
                                         {
-                                            "i=|loadsettings=", "Load settings xml file", x => settings = Tasks.LoadSettings(x)
+                                            "i=|loadsettings=", "Load settings xml file", x => loadSettingsFile = x
                                             },
                                         {
                                             "l=|log=", "Save log to file", x => settings.LogFileName = x
@@ -73,44 +72,76 @@ namespace ChaosMonkey
                                             },
                                         {
                                             "v=|tagvalue=", "Value of Tag that will be search for in instances e.g. if EC2 tag is chaos=1, ChaosMonkey TagValue=1",
-                                            x => settings.Tagkey = x
+                                            x => settings.TagValue = x
                                             }
-
                                     };
 
             options.Parse(args);
 
-
-            if (!acceptDisclaimer)
+            var logger = new ChaosLogger(settings.LogFileName);
+            try
             {
-                Console.WriteLine("WARNING!!! Chaos Monkey is going to break stuff. Press 'D' to indemnify the Chaos Monkey or its authors/contributors to your actions");
-                var key = Console.ReadKey();
-                Console.WriteLine();
-                if (key.KeyChar != 'D')
+                if (!string.IsNullOrEmpty(loadSettingsFile))
                 {
-                    Console.WriteLine("Cannot accept that, exiting");
+                    try
+                    {
+                        Tasks.LoadSettings(loadSettingsFile, logger);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Log("ERROR: " + ex.Message);
+                        return;
+                    }
+                }
+
+                if (!acceptDisclaimer)
+                {
+                    Console.WriteLine("WARNING!!! ChaosMonkey is going to break stuff. Press 'D' to indemnify the ChaosMonkey or its authors/contributors to your actions");
+                    var key = Console.ReadKey();
+                    Console.WriteLine();
+                    if (key.KeyChar != 'D')
+                    {
+                        logger.Log("Disclaimer not accepted, exiting");
+                        return;
+                    }
+
+                    logger.Log("Disclaimer accepted.");
+                }
+                else
+                {
+                    logger.Log("Disclaimer accepted via startup parameters.");
+                }
+
+                if (!Tasks.ValidateSettings(settings, logger))
+                {
+                    logger.Log("Invalid settings. use '-?' for help on parameters. Exiting.");
                     return;
                 }
-            }
 
-            if (!Tasks.ValidateSettings(settings))
-            {
-                Console.WriteLine("Invalid settings. Exiting.");
-            }
+                Tasks.UnleashChaos(settings, logger);
 
-            if (!string.IsNullOrEmpty(saveSettingsFile))
+                if (!string.IsNullOrEmpty(saveSettingsFile))
+                {
+                    logger.Log(string.Format("Saving settings to {0}", saveSettingsFile));
+                    try
+                    {
+                        Tasks.SaveSettings(saveSettingsFile, settings, logger);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Log("ERROR: " + ex.Message);
+                    }
+                }
+            }
+            finally
             {
-                Tasks.SaveSettings(saveSettingsFile, settings);
+                logger.Close();
+                if (showHelp)
+                {
+                    options.WriteOptionDescriptions(Console.Out);
+                }
             }
             
-            if (showHelp)
-            {
-                options.WriteOptionDescriptions(Console.Out);
-            }
-            Console.ReadKey();
         }
-
-
-
     }
 }

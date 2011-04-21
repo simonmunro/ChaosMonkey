@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ChaosMonkey.Domain
+﻿namespace ChaosMonkey.Domain
 {
+    using System.Collections.Generic;
+
     public class Ec2Endpoints
     {
-        public Dictionary<string, string> Endpoints { get; private set; }
-
         public Ec2Endpoints()
         {
             Endpoints = new Dictionary<string, string>()
@@ -18,9 +13,9 @@ namespace ChaosMonkey.Domain
                                 { "EU", "ec2.eu-west-1.amazonaws.com" },
                                 { "Asia-Pacific-Singapore", "ec2.ap-southeast-1.amazonaws.com" },
                                 { "Asia-Pacific-Japan", "ec2.ap-northeast-1.amazonaws.com" },
-
                             };
-
         }
+
+        public Dictionary<string, string> Endpoints { get; private set; }
     }
 }

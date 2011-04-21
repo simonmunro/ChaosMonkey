@@ -35,6 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AWSSDK, Version=1.3.2.0, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Referenced Assemblies\AWSSDK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NDesk.Options">
       <HintPath>..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll</HintPath>
     </Reference>
@@ -42,11 +47,14 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Ec2Endpoint.cs" />
+    <Compile Include="Domain\Settings.cs" />
+    <Compile Include="Infrastructure\ChaosLogger.cs" />
+    <Compile Include="Infrastructure\Ec2Factory.cs" />
     <Compile Include="Tasks.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,16 +62,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ChaosMonkey.Domain\ChaosMonkey.Domain.csproj">
-      <Project>{26F87E6D-E888-480B-AA08-9B0C2166E770}</Project>
-      <Name>ChaosMonkey.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChaosMonkey.Infrastructure\ChaosMonkey.Infrastructure.csproj">
-      <Project>{1B89B3D1-9965-4522-8DBB-8C7FDB931FD3}</Project>
-      <Name>ChaosMonkey.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

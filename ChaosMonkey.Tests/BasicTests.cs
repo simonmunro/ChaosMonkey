@@ -71,7 +71,7 @@ namespace ChaosMonkey.Tests
         {
             var appConfig = ConfigurationManager.AppSettings;
 
-            ec2Factory = new Ec2Factory(appConfig["AWSAccessKey"], appConfig["AWSSecretKey"]);
+            ec2Factory = new Ec2Factory(appConfig["AWSAccessKey"], appConfig["AWSSecretKey"], "ec2.eu-west-1.amazonaws.com", null);
              
         }
 
@@ -112,14 +112,14 @@ namespace ChaosMonkey.Tests
                                    TagValue = "1"
                                };
 
-            Tasks.SaveSettings(fileName, settings);
+            Tasks.SaveSettings(fileName, settings, null);
             Assert.IsTrue(File.Exists(fileName));
         }
 
         [TestMethod]
         public void can_load_settings_from_file()
         {
-            var settings = Tasks.LoadSettings((typeof(BasicTests)).Assembly.Location.Replace("ChaosMonkey.Tests.dll", "Settings.xml"));
+            var settings = Tasks.LoadSettings((typeof(BasicTests)).Assembly.Location.Replace("ChaosMonkey.Tests.dll", "Settings.xml"), null);
             Assert.IsTrue(settings.Tagkey == "chaos");
         }
     }

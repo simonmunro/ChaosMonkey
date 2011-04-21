@@ -54,14 +54,6 @@
     <Compile Include="BasicTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChaosMonkey.Domain\ChaosMonkey.Domain.csproj">
-      <Project>{26F87E6D-E888-480B-AA08-9B0C2166E770}</Project>
-      <Name>ChaosMonkey.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChaosMonkey.Infrastructure\ChaosMonkey.Infrastructure.csproj">
-      <Project>{1B89B3D1-9965-4522-8DBB-8C7FDB931FD3}</Project>
-      <Name>ChaosMonkey.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ChaosMonkey\ChaosMonkey.csproj">
       <Project>{A4DBD73D-6FBC-4D1D-B473-795F6DB12BC7}</Project>
       <Name>ChaosMonkey</Name>

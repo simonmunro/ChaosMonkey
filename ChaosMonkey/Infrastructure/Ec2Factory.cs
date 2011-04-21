@@ -11,13 +11,20 @@ namespace ChaosMonkey.Infrastructure
     public class Ec2Factory
     {
         private AmazonEC2 amazonEc2;
+        private ChaosLogger logger;
 
-        public Ec2Factory(string AWSAccessKey, string AWSSecretKey)
+        public Ec2Factory(string AWSAccessKey, string AWSSecretKey, string serviceUrl, ChaosLogger logger)
         {
+            this.logger = logger;
+            if (!serviceUrl.Contains("http://"))
+            {
+                serviceUrl = "http://" + serviceUrl;
+            }
+
             amazonEc2 = AWSClientFactory.CreateAmazonEC2Client(
                 AWSAccessKey, 
                 AWSSecretKey,
-                new AmazonEC2Config().WithServiceURL("https://eu-west-1.ec2.amazonaws.com"));
+                new AmazonEC2Config().WithServiceURL(serviceUrl));
         }
 
         public List<Reservation> ListAllInstances()
@@ -39,12 +46,28 @@ namespace ChaosMonkey.Infrastructure
 										Value = new List<string> 
 											{ 
 												tagValue 
-											} 
+											},
+									},
+								new Filter() 
+									{ 
+										Name = "instance-state-name",
+										Value = new List<string> 
+											{ 
+												"running" 
+											},
 									}
 							}
             };
-            var describeInstancesResponse = amazonEc2.DescribeInstances(describeInstancesRequest);
-            return describeInstancesResponse.DescribeInstancesResult.Reservation;
+            try
+            {
+                var describeInstancesResponse = amazonEc2.DescribeInstances(describeInstancesRequest);
+                return describeInstancesResponse.DescribeInstancesResult.Reservation;
+            }
+            catch (Exception ex)
+            {
+                logger.Log("AWS ERROR: " + ex.Message);
+                throw new Exception("Cannot list instances");
+            }
             
         }
 
