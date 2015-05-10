@@ -51,12 +51,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandLineParser.cs" />
+    <Compile Include="CommandLineSettings.cs" />
+    <Compile Include="CommandLineValidator.cs" />
     <Compile Include="Domain\Ec2Endpoint.cs" />
     <Compile Include="Domain\Settings.cs" />
+    <Compile Include="HardCodedMonkeyListBuilder.cs" />
     <Compile Include="Infrastructure\ChaosLogger.cs" />
+    <Compile Include="Infrastructure\CommandExecuter.cs" />
     <Compile Include="Infrastructure\Ec2Factory.cs" />
-    <Compile Include="Tasks.cs" />
+    <Compile Include="MonkeyKeeper.cs" />
+    <Compile Include="MonkeyListBuilder.cs" />
+    <Compile Include="Monkeys\EC2Monkey.cs" />
+    <Compile Include="Monkeys\IISServerMonkey.cs" />
+    <Compile Include="Monkeys\ParentMonkey.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Tasks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,10 @@
             {
                 logStream = File.AppendText(fileName);
             }
+            else
+            {
+                logStream =new StreamWriter( Console.OpenStandardOutput());
+            }
         }
 
         public void Log(string message)
